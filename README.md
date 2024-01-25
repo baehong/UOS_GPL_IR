@@ -1,4 +1,6 @@
-## GPL 논문을 서울시립대학교 규정 추출 모델을 위해 실제로 적용
+## GPL: Generative Pseudo Labeling for Unsupervised Domain Adaptation of Dense Retrieval 구현 (서울시립대 규정집 검색 엔진 데이터 엔지니어링)
+
+![image](https://github.com/baehong/UOS_GPL_IR/assets/142134807/7a5b6aad-20d9-4f9f-92c5-f26963009db3)
 
 
 
