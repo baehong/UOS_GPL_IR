@@ -1,4 +1,5 @@
-## GPL: Generative Pseudo Labeling for Unsupervised Domain Adaptation of Dense Retrieval 구현 (서울시립대 규정집 검색 엔진 데이터 엔지니어링)
+## GPL: Generative Pseudo Labeling for Unsupervised Domain Adaptation of Dense Retrieval 구현 
+##(서울시립대 규정집 검색 엔진 데이터 엔지니어링)
 
 
 
