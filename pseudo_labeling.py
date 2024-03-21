@@ -19,6 +19,7 @@ import textract
 from tqdm import tqdm
 import pandas as pd
 import torch
+import openai
 
 # change directory & upload Rule file
 from google.colab import drive
@@ -44,13 +45,30 @@ p = '제6조(선발시기 및 선발방법) ① 연계과정 학생은 매학기
 
 
 # 5 synthetic query by chat-GPT
-question = {
-"질문 1": "연계과정 학생은 언제 선발되나요?",
-"질문 2": "연계과정의 선발 주기는 어떻게 되나요?",
-"질문 3": "선발 일정은 누가 결정하나요?",
-"질문 4": "연계과정 학생이 선택되는 데 있어서 어떤 원칙이 적용되나요?",
-"질문 5": "연계과정 학생의 선발은 어떻게 이루어지나요?"
-}
+# OpenAI API 키 설정
+api_key = "MY_API_KEY"  
+openai.api_key = api_key
+
+# 질문 생성 함수
+def generate_questions(regulation):
+    prompt = f"당신의 임무는 주어진 규정으로 답변이 가능한 5개의 질문을 생성하는 것입니다. 답변의 조건은 다음과 같습니다. 1. 질문은 규정의 핵심내용과 관련되어야 합니다. 2. 규정 내에서 반드시 답변이 가능해야 합니다. 3. 질문은 반드시 다음과 같은 json 형태로 출력해야 합니다. {{ 답변1 : 답변1, 답변2 : 답변2, 답변3 : 답변3, 답변4 : 답변4, 답변5 : 답변5, }} 4. 한국어로 질문을 생성해야 합니다. 5. GPT본인이 생성한 질문에 대해 규정집을 보고 반드시 답변할 수 있어야 합니다. 주어진 규정: {regulation}"
+    
+    response = openai.Completion.create(
+        engine="text-davinci-003",
+        prompt=prompt,
+        temperature=0.7,
+        max_tokens=150
+    )
+
+    return response.choices[0].text.strip()
+
+# 주어진 규정
+regulation = "제6조(선발시기 및 선발방법) ① 연계과정 학생은 매학기 1회 선발함을 원칙으로 하며, 세부 일정은 대학원장이 따로 정한다."
+
+# 질문 생성
+question = generate_questions(regulation)
+
+
 
 # make score query with rule datasets
 mpnet_score = []
